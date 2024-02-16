@@ -29,7 +29,7 @@ async def _main_loop():
             LOGGER.info(f"append_dht_hist: humidity={humidity}, temperature={temp}")
         except:
             LOGGER.exception("unexpected exception.")
-        await asyncio.sleep(5)
+        await asyncio.sleep(10)
 
 
 async def app_main():
