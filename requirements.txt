@@ -1,1 +1,7 @@
-setproctitle~=1.2.3
+greenlet==2.0.2
+importlib-metadata==4.8.3
+RPi.GPIO==0.7.1
+setproctitle==1.2.3
+SQLAlchemy==1.4.51
+typing_extensions==4.1.1
+zipp==3.6.0
