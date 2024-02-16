@@ -1,14 +1,41 @@
 import asyncio
-from .log import LOGGER
 
-def app_main():
+from .dht11 import read_device
+from .log import LOGGER, init_logging
+from .db import db_init, append_dht_hist
+
+
+async def _app_init():
+    """
+    初始化.
+    :return:
+    """
+    init_logging()
+    # 初始化数据库
+    await db_init()
+
+
+async def _main_loop():
     """
     主循环, 读取设备, 并将数据写入数据库.
     :return:
     """
-    loop = asyncio.get_event_loop()
+    while True:
+        # 读取设备
+        humidity, temp = read_device()
+        # 写入数据库
+        await append_dht_hist(humidity, temp)
+        LOGGER.info(f"append_dht_hist: humidity={humidity}, temperature={temp}")
+        await asyncio.sleep(5)
 
+
+async def app_main():
+    """
+    主入口
+    :return:
+    """
     try:
-        loop.run_forever()
+        await _app_init()
+        await _main_loop()
     except:
         LOGGER.exception("unexpected exception.")

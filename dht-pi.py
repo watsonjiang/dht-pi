@@ -4,11 +4,11 @@
 
 import argparse
 import asyncio
-import sys
 
 from setproctitle import setproctitle
 
-sys.path.append('')
+from dhtpi.app import app_main
+
 from dhtpi.daemon import Daemon
 
 PID_FILE = 'dht-pi.pid'
