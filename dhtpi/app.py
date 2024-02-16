@@ -21,11 +21,14 @@ async def _main_loop():
     :return:
     """
     while True:
-        # 读取设备
-        humidity, temp = await read_device()
-        # 写入数据库
-        await append_dht_hist(humidity, temp)
-        LOGGER.info(f"append_dht_hist: humidity={humidity}, temperature={temp}")
+        try:
+            # 读取设备
+            humidity, temp = await read_device()
+            # 写入数据库
+            await append_dht_hist(humidity, temp)
+            LOGGER.info(f"append_dht_hist: humidity={humidity}, temperature={temp}")
+        except:
+            LOGGER.exception("unexpected exception.")
         await asyncio.sleep(5)
 
 
