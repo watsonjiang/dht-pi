@@ -112,8 +112,6 @@ async def read_device():
     GPIO.setmode(GPIO.BCM)  # 设置为BCM编号模式
     try:
         return await _read_device()
-    except:
-        LOGGER.exception("unexpected exception.")
     finally:
         GPIO.cleanup()
 
