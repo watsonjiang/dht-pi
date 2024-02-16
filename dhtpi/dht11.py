@@ -7,7 +7,6 @@ from RPi import GPIO
 
 # 使用GPIO17引脚驱动
 PIN = 17
-GPIO.setmode(GPIO.BCM)  # 设置为BCM编号模式
 
 
 async def _delay_in_ms(t):  # 毫秒级延时函数
@@ -24,6 +23,7 @@ def _wait_for_edge_in_time(pin: int, edge: int, time_in_ms: int):
         t_cost = (time.monotonic_ns() - t_start) / 1000000
         if t_cost > time_in_ms:
             raise TimeoutError('wait for edge timeout. cost in ms:{}'.format(t_cost))
+
 
 def _wait_for_dht_start():
     """
@@ -50,6 +50,7 @@ def _wait_for_dht_data():
             rst.append((t, v))
             if len(rst) == 84:
                 return rst
+
 
 def _parse_int(data: list[int]):
     i = 0
@@ -106,12 +107,15 @@ async def _read_device():
     logging.info('设备响应成功, 湿度:{}, 温度:{}'.format(rh, temp))
     return rh, temp
 
+
 async def read_device():
+    GPIO.setmode(GPIO.BCM)  # 设置为BCM编号模式
     try:
-        await _read_device()
+        return await _read_device()
     except:
         LOGGER.exception("unexpected exception.")
-    GPIO.cleanup()
+    finally:
+        GPIO.cleanup()
 
 
 if __name__ == '__main__':
