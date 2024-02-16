@@ -1,3 +1,4 @@
+aiosqlite==0.17.0
 greenlet==2.0.2
 importlib-metadata==4.8.3
 RPi.GPIO==0.7.1
