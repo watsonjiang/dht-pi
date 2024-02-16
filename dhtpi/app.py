@@ -22,7 +22,7 @@ async def _main_loop():
     """
     while True:
         # 读取设备
-        humidity, temp = read_device()
+        humidity, temp = await read_device()
         # 写入数据库
         await append_dht_hist(humidity, temp)
         LOGGER.info(f"append_dht_hist: humidity={humidity}, temperature={temp}")
