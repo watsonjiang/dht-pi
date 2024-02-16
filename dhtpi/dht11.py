@@ -104,7 +104,7 @@ async def _read_device():
 
     rh, temp = _unpack_dht_data(raw)
 
-    logging.info('设备响应成功, 湿度:{}, 温度:{}'.format(rh, temp))
+    LOGGER.info('设备响应成功, 湿度:{}, 温度:{}'.format(rh, temp))
     return rh, temp
 
 
